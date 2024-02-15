@@ -1,1 +1,7 @@
-<p>list-page works!</p>
+<div class="grid bm-8">
+    <div *ngFor="let phrasalVerb of phrasalVerbs" class="col-12 sm:col-4 md:col-3 xl:col-2">
+        <phrasal-verb-card [phrasalVerb]="phrasalVerb"></phrasal-verb-card>
+
+
+    </div>
+</div>
