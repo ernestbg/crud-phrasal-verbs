@@ -18,18 +18,36 @@ export class PhrasalVerbsService {
     return this.angularFirestore.collection('/PhrasalVerbs').snapshotChanges();
   }
   getPhrasalVerbById(id: string): Observable<any> {
-    return this.angularFirestore.collection('/PhrasalVerbs').doc(id).valueChanges()
+    return this.angularFirestore.collection('/PhrasalVerbs').doc(id).valueChanges();
   }
 
-  getSuggestions(query: string) {
-    this.angularFirestore.collection('/PhrasalVerbs', ref => ref.where('headword', '==', query));
+  getSuggestions(query: string): Observable<any[]> {
+    return this.angularFirestore.collection('/PhrasalVerbs', ref => ref
+      .where('headword', '>=', query)
+      .where('headword', '<=', query + '\uf8ff'))
+      .valueChanges();
   }
 
-
-
-  deletePhrasalVerb(phrasalVerb: PhrasalVerb) {
-    return this.angularFirestore.doc('/PhrasalVerbs' + phrasalVerb.id).delete();
+  savePhrasalVerb(form: any) {
+    this.angularFirestore.collection('/PhrasalVerbs').add(form.value)
+      .then(() => {
+        form.resetForm();
+      })
+      .catch((error) => {
+        console.error('Error al añadir documento: ', error);
+      });
   }
+
+  deletePhrasalVerb(phrasalVerbId: string ) {
+    this.angularFirestore.collection('/PhrasalVerbs').doc(phrasalVerbId).delete()
+      .then(() => {
+        console.log('Documento eliminado correctamente');
+      })
+      .catch((error) => {
+        console.error('Error al eliminar documento: ', error);
+      });
+  }
+
 
   /*  updatePhrasalVerb(phrasalVerb: PhrasalVerb) {
      return this.angularFirestore.doc('/PhrasalVerbs' + phrasalVerb.id).update;

@@ -1,0 +1,26 @@
+
+<form [formGroup]="modalForm" (ngSubmit)="savePhrasalVerb()">
+
+
+<h1 mat-dialog-title>{{inputData.title}}</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Headword</mat-label>
+        <input formControlName="headword" matInput>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Level</mat-label>
+        <input formControlName="level" matInput>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Sublevel</mat-label>
+        <input formControlName="sublevel" matInput>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button>Save</button>
+    <button mat-raised-button (click)="closeModalForm()">close</button>
+    <button mat-raised-button [mat-dialog-close]="closeMessage">cancel</button>
+</div>
+
+</form>

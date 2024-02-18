@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PhrasalVerbsService } from '../../services/phrasal-verbs.service';
 import { PhrasalVerb } from '../../interfaces/phrasal-verb.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalFormComponent } from '../../components/modal-form/modal-form.component';
 
 @Component({
   selector: 'app-list-page',
@@ -10,8 +12,8 @@ import { PhrasalVerb } from '../../interfaces/phrasal-verb.interface';
 })
 export class ListPageComponent implements OnInit {
   public phrasalVerbs: PhrasalVerb[] = [];
-  constructor(private PhasalVerbsService: PhrasalVerbsService) { }
-
+  constructor(private PhasalVerbsService: PhrasalVerbsService, private dialog: MatDialog) { }
+ 
   ngOnInit(): void {
     this.PhasalVerbsService.getAllPhrasalVerbs().subscribe(phrasalVerbs => {
       this.phrasalVerbs = phrasalVerbs.map((e: any) => {
@@ -24,4 +26,17 @@ export class ListPageComponent implements OnInit {
     })
   }
 
+  openModalForm() {
+   var modalForm= this.dialog.open(ModalFormComponent, {
+      width: '40%',
+      height: '400px',
+      enterAnimationDuration:'300ms',
+      exitAnimationDuration:'300ms',
+      data: {
+        title: 'user-edit'
+      }
+    });  
+    modalForm.afterClosed().subscribe(item=>console.log(item))
+  }
+  
 }

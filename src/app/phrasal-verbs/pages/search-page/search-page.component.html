@@ -1,1 +1,14 @@
-<p>search-page works!</p>
+<div class="flex flex-column p-2">
+    <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input type="text" [formControl]="searchInput" (input)="searchPhrasalVerbs()" [matAutocomplete]="auto" matInput>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectedOption($event)">
+            <mat-option *ngFor="let phrasalVerb of phrasalVerbs"
+                [value]="phrasalVerb">{{phrasalVerb.headword}}</mat-option>
+            <mat-option *ngIf="phrasalVerbs.length === 0 && searchInput.value && searchInput.value.length > 0"
+                value="">Not found</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    {{selectedPhrasalVerb | json}}
+</div>
+

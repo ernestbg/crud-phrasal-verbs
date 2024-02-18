@@ -34,7 +34,15 @@ export class DetailsPageComponent implements OnInit {
     });
   }
 
-  goBack(){
+  deletePhrasalVerb() {
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.phrasalVerbService.deletePhrasalVerb(id);
+    this.router.navigate(['/phrasal-verbs/list']);
+  }
+
+
+
+  goBack() {
     this.router.navigateByUrl('phrasal-verbs/list');
   }
 

@@ -5,7 +5,7 @@
         </mat-grid-tile>
     </mat-grid-list>
 </ng-template>
-
+<button mat-button (click)="goBack()"><i class="material-icons">arrow_back</i></button>
 
 <mat-list *ngIf="phrasalVerb; else divLoading">
     <mat-list-item>
@@ -13,4 +13,4 @@
     </mat-list-item>
 </mat-list>
 
-<button mat-button (click)="goBack()"><i class="material-icons">arrow_back</i></button>
+<button mat-button (click)="deletePhrasalVerb()"><i class="material-icons">delete</i></button>

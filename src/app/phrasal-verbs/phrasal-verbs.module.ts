@@ -6,8 +6,9 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { PhrasalVerbsRoutingModule } from './phrasal-verbs-routing.module';
 import { MaterialModule } from '../material/material.module';
-import { PhrasalVerbCardComponent } from './components/phrasal-verb-card/phrasal-verb-card.component';
 import { DetailsPageComponent } from './pages/details-page/details-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModalFormComponent } from './components/modal-form/modal-form.component';
 
 
 
@@ -17,13 +18,14 @@ import { DetailsPageComponent } from './pages/details-page/details-page.componen
     LayoutPageComponent,
     SearchPageComponent,
     ListPageComponent,
-    PhrasalVerbCardComponent,
-    DetailsPageComponent
+    DetailsPageComponent,
+    ModalFormComponent
   ],
   imports: [
     CommonModule,
     PhrasalVerbsRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class PhrasalVerbsModule { }
