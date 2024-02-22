@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     LayoutPageComponent,
     ListPageComponent,
     DetailsPageComponent,
-    ModalFormComponent
+    ModalFormComponent,
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PhrasalVerbsService } from '../../services/phrasal-verbs.service';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { PhrasalVerb } from '../../interfaces/phrasal-verb.interface';
+import { PhrasalVerbsService } from '../../services/phrasal-verbs.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-details-page',
@@ -14,9 +16,11 @@ export class DetailsPageComponent implements OnInit {
   public phrasalVerb?: PhrasalVerb;
   phrasalVerb$!: Observable<PhrasalVerb>;
 
+
   constructor(private phrasalVerbService: PhrasalVerbsService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.phrasalVerb$ = this.activatedRoute.params.pipe(
@@ -36,18 +40,37 @@ export class DetailsPageComponent implements OnInit {
 
   deletePhrasalVerb() {
     const id = this.activatedRoute.snapshot.params['id'];
-    this.phrasalVerbService.deletePhrasalVerb(id);
-    this.router.navigate(['/phrasal-verbs/list']);
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.phrasalVerbService.deletePhrasalVerb(id);
+        this.router.navigate(['/phrasal-verbs/list']);
+
+        Swal.fire(
+          '¡Eliminado!',
+          'Tu archivo ha sido eliminado.',
+          'success'
+        );
+      }
+    });
+
+
   }
-
-
 
   goBack() {
     this.router.navigateByUrl('phrasal-verbs/list');
   }
-
-
 }
+
+
 
 
 

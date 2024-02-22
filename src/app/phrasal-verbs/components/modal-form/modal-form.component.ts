@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PhrasalVerbsService } from '../../services/phrasal-verbs.service';
 
+
+
 @Component({
   selector: 'app-modal-form',
   templateUrl: './modal-form.component.html',
@@ -53,13 +55,14 @@ export class ModalFormComponent implements OnInit {
       this.updatePhrasalVerb();
     } else {
       this.addPhrasalVerb();
+     
     }
     this.modalForm.reset();
     this.matDialogRef.close();
   }
 
   addPhrasalVerb() {
-    this.phrasalVerbsService.addPhrasalVerb(this.modalForm);
+    this.phrasalVerbsService.addDocumentIfNotDuplicate(this.modalForm);
   }
 
   updatePhrasalVerb() {

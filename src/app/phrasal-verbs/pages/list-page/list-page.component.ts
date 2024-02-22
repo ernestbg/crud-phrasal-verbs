@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PhrasalVerbsService } from '../../services/phrasal-verbs.service';
 import { PhrasalVerb } from '../../interfaces/phrasal-verb.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalFormComponent } from '../../components/modal-form/modal-form.component';
 import { tap } from 'rxjs';
+import { PhrasalVerbsService } from '../../services/phrasal-verbs.service';
 
 @Component({
   selector: 'app-list-page',
@@ -36,9 +36,9 @@ export class ListPageComponent implements OnInit {
         }
       });
 
-   /*  this.phrasalVerbsService.getTotalItems().subscribe(total => {
-      this.totalItems = total;
-    }); */
+    /*  this.phrasalVerbsService.getTotalItems().subscribe(total => {
+       this.totalItems = total;
+     }); */
   }
 
   search() {
@@ -48,7 +48,7 @@ export class ListPageComponent implements OnInit {
   }
 
   openModalForm(title: string, id?: any) {
-    var modalForm = this.dialog.open(ModalFormComponent, {
+    this.dialog.open(ModalFormComponent, {
       width: '40%',
       height: '400px',
       enterAnimationDuration: '150ms',
@@ -58,7 +58,6 @@ export class ListPageComponent implements OnInit {
         id: id
       }
     });
-    modalForm.afterClosed().subscribe(item => console.log(item))
   }
 
   editPhrasalVerb(id: any) {
