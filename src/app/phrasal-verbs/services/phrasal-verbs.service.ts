@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { PhrasalVerb } from '../interfaces/phrasal-verb.interface';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,13 @@ export class PhrasalVerbsService {
 
 
   getAllPhrasalVerbs() {
-    return this.angularFirestore.collection('/PhrasalVerbs').snapshotChanges();
+    return this.angularFirestore.collection('/PhrasalVerbs', ref => ref.orderBy('headword')).snapshotChanges();
+  }
+  
+  getTotalItems(): Observable<number> {
+    return this.angularFirestore.collection('/PhrasalVerbs').get().pipe(
+      map(collection => collection.size)
+    );
   }
 
   getPhrasalVerbById(id: string): Observable<any> {
@@ -28,7 +34,7 @@ export class PhrasalVerbsService {
   }
 
 
-  savePhrasalVerb(form: any) {
+  addPhrasalVerb(form: any) {
     this.angularFirestore.collection('/PhrasalVerbs').add(form.value)
       .then(() => {
       })

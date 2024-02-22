@@ -16,6 +16,7 @@ export class ModalFormComponent implements OnInit {
 
   modalForm = this.formBuilder.group({
     headword: this.formBuilder.control(''),
+    definition: this.formBuilder.control(''),
     level: this.formBuilder.control(''),
     sublevel: this.formBuilder.control(''),
   });
@@ -34,6 +35,18 @@ export class ModalFormComponent implements OnInit {
       this.setModalData(this.inputData.id);
     }
   }
+  
+  setModalData(id: string) {
+    this.phrasalVerbsService.getPhrasalVerbById(id)
+      .subscribe(phrasalVerb => {
+        this.modalForm.setValue({
+          headword: phrasalVerb.headword,
+          definition: phrasalVerb.definition,
+          level: phrasalVerb.level,
+          sublevel: phrasalVerb.sublevel,      
+        });
+      });
+  }
 
   savePhrasalVerb(editMode: boolean) {
     if (editMode) {
@@ -42,25 +55,15 @@ export class ModalFormComponent implements OnInit {
       this.addPhrasalVerb();
     }
     this.modalForm.reset();
+    this.matDialogRef.close();
   }
 
   addPhrasalVerb() {
-    this.phrasalVerbsService.savePhrasalVerb(this.modalForm);
+    this.phrasalVerbsService.addPhrasalVerb(this.modalForm);
   }
 
   updatePhrasalVerb() {
     return this.phrasalVerbsService.updatePhrasalVerb(this.inputData.id, this.modalForm.value);
-  }
-
-  setModalData(id: string) {
-    this.phrasalVerbsService.getPhrasalVerbById(id)
-      .subscribe(phrasalVerb => {
-        this.modalForm.setValue({
-          headword: phrasalVerb.headword,
-          level: phrasalVerb.level,
-          sublevel: phrasalVerb.sublevel
-        });
-      });
   }
 
   closeModalForm() {

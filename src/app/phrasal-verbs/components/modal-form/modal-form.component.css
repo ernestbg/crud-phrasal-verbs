@@ -6,3 +6,8 @@
 button {
     margin: 2px;
 }
+
+.mat-success {
+    background-color: green;
+    color: #fff;
+}

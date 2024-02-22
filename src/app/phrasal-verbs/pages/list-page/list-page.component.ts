@@ -8,13 +8,14 @@ import { tap } from 'rxjs';
 @Component({
   selector: 'app-list-page',
   templateUrl: './list-page.component.html',
-  styles: [
-  ]
+  styleUrls: ['./list-page.component.css']
 })
 export class ListPageComponent implements OnInit {
   public phrasalVerbs: PhrasalVerb[] = [];
   public filteredPhrasalVerbs: PhrasalVerb[] = [];
   public searchTerm: string = '';
+  public totalItems: number = 0;
+
   constructor(private phrasalVerbsService: PhrasalVerbsService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -34,11 +35,15 @@ export class ListPageComponent implements OnInit {
           console.log('Error while fetching data:' + err);
         }
       });
+
+   /*  this.phrasalVerbsService.getTotalItems().subscribe(total => {
+      this.totalItems = total;
+    }); */
   }
 
   search() {
-    this.filteredPhrasalVerbs = this.phrasalVerbs.filter(verb =>
-      verb.headword.toLowerCase().includes(this.searchTerm.toLowerCase())
+    this.filteredPhrasalVerbs = this.phrasalVerbs.filter(phrasalVerb =>
+      phrasalVerb.headword.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
@@ -46,8 +51,8 @@ export class ListPageComponent implements OnInit {
     var modalForm = this.dialog.open(ModalFormComponent, {
       width: '40%',
       height: '400px',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '300ms',
+      enterAnimationDuration: '150ms',
+      exitAnimationDuration: '150ms',
       data: {
         title: title,
         id: id
