@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, map, take } from 'rxjs';
 import { PhrasalVerb } from '../interfaces/phrasal-verb.interface';
+import Swal from 'sweetalert2';
 
 
 
@@ -45,9 +46,25 @@ export class PhrasalVerbsService {
       .pipe(take(1))
       .subscribe(isDuplicate => {
         if (!isDuplicate) {
-          this.angularFirestore.collection('/PhrasalVerbs').add(formData);
+          this.angularFirestore.collection('/PhrasalVerbs').add(formData)
+            .then(() => {
+              // Muestra una notificación de éxito
+              Swal.fire({
+                icon: 'success',
+                title: 'Data added successfully',
+                showConfirmButton: false,
+                timer: 1500 // Duración en milisegundos
+              });
+            })
+            .catch(error => {
+              console.error('Error al agregar documento:', error);
+            });
         } else {
-          console.log('El documento ya existe, no se agregará un duplicado.');
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Document already exist, trying to add a duplicate!",
+          });
         }
       });
   }

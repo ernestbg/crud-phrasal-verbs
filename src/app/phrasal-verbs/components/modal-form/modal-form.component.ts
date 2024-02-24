@@ -19,6 +19,7 @@ export class ModalFormComponent implements OnInit {
   modalForm = this.formBuilder.group({
     headword: this.formBuilder.control(''),
     definition: this.formBuilder.control(''),
+    example: this.formBuilder.control(''),
     level: this.formBuilder.control(''),
     sublevel: this.formBuilder.control(''),
   });
@@ -44,6 +45,7 @@ export class ModalFormComponent implements OnInit {
         this.modalForm.setValue({
           headword: phrasalVerb.headword,
           definition: phrasalVerb.definition,
+          example: phrasalVerb.example,
           level: phrasalVerb.level,
           sublevel: phrasalVerb.sublevel,      
         });

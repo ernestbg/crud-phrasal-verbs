@@ -19,8 +19,7 @@ export class DetailsPageComponent implements OnInit {
 
   constructor(private phrasalVerbService: PhrasalVerbsService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private dialog: MatDialog) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.phrasalVerb$ = this.activatedRoute.params.pipe(
@@ -30,6 +29,7 @@ export class DetailsPageComponent implements OnInit {
       next: (phrasalVerb: PhrasalVerb) => {
         if (!phrasalVerb) return this.router.navigate(['/phrasal-verbs/list']);
         this.phrasalVerb = phrasalVerb;
+        console.log(phrasalVerb.example)
         return;
       },
       error: (error) => {
@@ -40,29 +40,26 @@ export class DetailsPageComponent implements OnInit {
 
   deletePhrasalVerb() {
     const id = this.activatedRoute.snapshot.params['id'];
-
     Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¡No podrás revertir esto!',
+      title: '¿Are you sure?',
+      text: "¡You won't be able to reverse this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminarlo!'
+      confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.phrasalVerbService.deletePhrasalVerb(id);
         this.router.navigate(['/phrasal-verbs/list']);
 
         Swal.fire(
-          '¡Eliminado!',
-          'Tu archivo ha sido eliminado.',
+          'Deleted!',
+          'The data has been deleted.',
           'success'
         );
       }
     });
-
-
   }
 
   goBack() {

@@ -20,5 +20,14 @@
     /* Margen a la izquierda del botón */
 }
 
+mat-card-title,
+mat-card-subtitle,
+mat-card-content p {
+  display: -webkit-box; /* Necesario para usar line-clamp en navegadores basados en WebKit */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Número máximo de líneas de texto permitidas */
+  overflow: hidden;
+}
+
 
 
