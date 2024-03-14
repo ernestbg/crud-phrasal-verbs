@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 export class LayoutPageComponent {
 
   public sidebarItems = [
-    { label: 'List', icon: 'label', url: './list' },
+    { label: 'phrasal-verbs-firestore ', icon: 'label', url: './phrasal-verbs-firestore' },
   ]
 
 }

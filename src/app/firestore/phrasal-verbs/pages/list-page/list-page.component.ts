@@ -61,7 +61,7 @@ export class ListPageComponent implements OnInit {
   }
 
   editPhrasalVerb(id: any) {
-    this.openModalForm('Edit', id,);
+    this.openModalForm('Edit', id);
   }
 
   addPhrasalVerb() {

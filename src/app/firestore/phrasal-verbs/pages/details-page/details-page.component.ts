@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { PhrasalVerb } from '../../interfaces/phrasal-verb.interface';
@@ -27,7 +26,7 @@ export class DetailsPageComponent implements OnInit {
     );
     this.phrasalVerb$.subscribe({
       next: (phrasalVerb: PhrasalVerb) => {
-        if (!phrasalVerb) return this.router.navigate(['/phrasal-verbs/list']);
+        if (!phrasalVerb) return this.router.navigate(['/dashboard/phrasal-verbs-firestore']);
         this.phrasalVerb = phrasalVerb;
         console.log(phrasalVerb.example)
         return;
@@ -51,7 +50,7 @@ export class DetailsPageComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.phrasalVerbService.deletePhrasalVerb(id);
-        this.router.navigate(['/phrasal-verbs/list']);
+        this.router.navigate(['/dashboard/phrasal-verbs-firestore']);
 
         Swal.fire(
           'Deleted!',
@@ -63,7 +62,7 @@ export class DetailsPageComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('phrasal-verbs/list');
+    this.router.navigateByUrl('/dashboard/phrasal-verbs-firestore');
   }
 }
 

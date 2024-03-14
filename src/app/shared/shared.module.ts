@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Error404PageComponent } from './pages/error404-page/error404-page.component';
-
+import { MaterialModule } from '../material/material.module';
+import { LayoutPageComponent } from './layout-page/layout-page.component';
+import { RouterModule } from '@angular/router';
+import { PhrasalVerbsModule } from '../firestore/phrasal-verbs/phrasal-verbs.module';
 
 
 @NgModule({
   declarations: [
-    Error404PageComponent
+    LayoutPageComponent,
   ],
   imports: [
-    CommonModule
-  ],
-  exports: [
-    Error404PageComponent
+    CommonModule,
+    PhrasalVerbsModule,
+    MaterialModule,
+    RouterModule
   ]
 })
 export class SharedModule { }
